@@ -1,25 +1,57 @@
 package org.postfix;
 
-public class PostfixCalculator implements Calc, Stack<Integer> {
+public class PostfixCalculator implements Calc {
+    private Stack<Double> stack;
+
+    public PostfixCalculator() {
+        this.stack = new StackVector<>();
+    }
 
     @Override
     public double calculate(String input) {
-        return 0; 
+        stack = new StackVector<>(); // clear stack
+        
+        String[] tokens = input.trim().split("\\s+");
+        
+        for (String token : tokens) {
+            if (isOperator(token)) {
+                if (((StackVector<Double>) stack).size() < 2) {
+                    throw new IllegalArgumentException("Operandos insuficientes");
+                }
+                
+                double b = stack.pop();
+                double a = stack.pop();
+                double resultado = operar(a, b, token);
+                stack.push(resultado);
+            } else {
+                try {
+                    stack.push(Double.parseDouble(token));
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException("Carácter inválido: " + token);
+                }
+            }
+        }
+        
+        if (((StackVector<Double>) stack).size() != 1) {
+            throw new IllegalArgumentException("Expresión inválida");
+        }
+        
+        return stack.pop();
     }
-
-    @Override
-    public void push(Integer item) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    
+    private boolean isOperator(String token) {
+        return token.matches("[+\\-*/]");
     }
-
-    @Override
-    public Integer pop() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    
+    private double operar(double a, double b, String op) {
+        switch (op) {
+            case "+": return a + b;
+            case "-": return a - b;
+            case "*": return a * b;
+            case "/":
+                if (b == 0) throw new ArithmeticException("División entre cero");
+                return a / b;
+            default: throw new IllegalArgumentException("Operador desconocido");
+        }
     }
-
-    @Override
-    public Integer peek() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
 }
