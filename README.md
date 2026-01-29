@@ -11,7 +11,7 @@ Este proyecto implementa:
 - Manejo de errores: división por cero, operandos insuficientes, caracteres inválidos
 
 ## Estructura del Proyecto
-
+```
 POSTFIX-CALCULATOR/
 ├── README.md
 └── demo/                           ← TRABAJAR SIEMPRE DESDE AQUÍ
