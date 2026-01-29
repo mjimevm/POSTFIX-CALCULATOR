@@ -13,22 +13,46 @@ Este proyecto implementa:
 ## Estructura del Proyecto
 ```
 POSTFIX-CALCULATOR/
+├── .gitignore
 ├── README.md
-└── demo/                           ← TRABAJAR SIEMPRE DESDE AQUÍ
+└── demo/                ← TRABAJAR SIEMPRE DESDE AQUÍ
     ├── pom.xml
     ├── src/
-    │   └── main/
-    │       ├── java/
-    │       │   └── org/postfix/
-    │       │       ├── Calc.java
-    │       │       ├── Stack.java
-    │       │       ├── StackVector.java
-    │       │       ├── PostfixCalculator.java
-    │       │       └── Main.java
-    │       └── resources/
-    │           └── datos.txt
+    │   ├── main/
+    │   │   ├── java/
+    │   │   │   └── org/
+    │   │   │       └── postfix/
+    │   │   │           ├── Calc.java
+    │   │   │           ├── Stack.java
+    │   │   │           ├── StackVector.java
+    │   │   │           ├── PostfixCalculator.java
+    │   │   │           └── Main.java
+    │   │   └── resources/
+    │   │       └── datos.txt
+    │   └── test/
+    │       └── java/
+    │           └── org/
+    │               └── postfix/
+    │                   ├── CalculatorTest.java
+    │                   └── StackOperation.java
     └── target/
-        └── classes/
+        ├── classes/
+        │   ├── datos.txt
+        │   └── org/
+        │       └── postfix/
+        │           ├── Calc.class
+        │           ├── Stack.class
+        │           ├── StackVector.class
+        │           ├── PostfixCalculator.class
+        │           └── Main.class
+        ├── test-classes/
+        │   └── org/
+        │       └── postfix/
+        │           ├── CalculatorTest.class
+        │           └── StackOperation.class
+        └── surefire-reports/
+            ├── org.postfix.StackOperation.txt
+            └── TEST-org.postfix.StackOperation.xml
 ```
 ## Requisitos
 
