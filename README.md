@@ -7,57 +7,43 @@ Calculadora de expresiones en notación Postfix (polaca inversa) desarrollada en
 Este proyecto implementa:
 - **ADT Stack** (Pila genérica) usando ArrayList
 - **Calculadora Postfix** que evalúa expresiones aritméticas
+- **Generador de reportes PDF** con iText7
 - Operadores soportados: `+`, `-`, `*`, `/`
 - Manejo de errores: división por cero, operandos insuficientes, caracteres inválidos
 
 ## Estructura del Proyecto
+
 ```
 POSTFIX-CALCULATOR/
-├── .gitignore
 ├── README.md
-└── demo/                ← TRABAJAR SIEMPRE DESDE AQUÍ
+├── .gitignore
+└── demo/                           ← TRABAJAR SIEMPRE DESDE AQUÍ
     ├── pom.xml
     ├── src/
     │   ├── main/
     │   │   ├── java/
-    │   │   │   └── org/
-    │   │   │       └── postfix/
-    │   │   │           ├── Calc.java
-    │   │   │           ├── Stack.java
-    │   │   │           ├── StackVector.java
-    │   │   │           ├── PostfixCalculator.java
-    │   │   │           └── Main.java
+    │   │   │   └── org/postfix/
+    │   │   │       ├── Calc.java
+    │   │   │       ├── Stack.java
+    │   │   │       ├── StackVector.java
+    │   │   │       ├── PostfixCalculator.java
+    │   │   │       ├── PDFGenerator.java
+    │   │   │       └── Main.java
     │   │   └── resources/
     │   │       └── datos.txt
     │   └── test/
     │       └── java/
-    │           └── org/
-    │               └── postfix/
-    │                   ├── CalculatorTest.java
-    │                   └── StackOperation.java
+    │           └── org/postfix/
+    │               ├── CalculatorTest.java
+    │               └── StackOperation.java
     └── target/
-        ├── classes/
-        │   ├── datos.txt
-        │   └── org/
-        │       └── postfix/
-        │           ├── Calc.class
-        │           ├── Stack.class
-        │           ├── StackVector.class
-        │           ├── PostfixCalculator.class
-        │           └── Main.class
-        ├── test-classes/
-        │   └── org/
-        │       └── postfix/
-        │           ├── CalculatorTest.class
-        │           └── StackOperation.class
-        └── surefire-reports/
-            ├── org.postfix.StackOperation.txt
-            └── TEST-org.postfix.StackOperation.xml
+        └── classes/
 ```
+
 ## Requisitos
 
-- Java 17 o superior
-- Maven 3.6+ (opcional pero recomendado)
+- **Java 17 o superior**
+- **Maven 3.6+** (recomendado)
 
 ## Instalación
 
@@ -65,10 +51,18 @@ POSTFIX-CALCULATOR/
 
 ```bash
 git clone https://github.com/mjimevm/POSTFIX-CALCULATOR
-cd POSTFIX-CALCULATOR/DEMO
+cd POSTFIX-CALCULATOR
 ```
 
-## 2. Instalación de Maven
+### 2. Verificar instalación de Java
+
+```bash
+java -version
+```
+
+Debe mostrar Java 17 o superior.
+
+## 3. Instalación de Maven
 
 ```bash
 mvn clean install
@@ -100,60 +94,91 @@ java -cp demo/target/classes org.postfix.Main
 javac -d out src/main/java/org/postfix/*.java
 ```
 
-4. Ejecuta el programa desde la raíz del proyecto:
-```
-java -cp out org.postfix.Main
-```
+**Nota:** La opción sin Maven **NO generará el PDF** porque requiere las librerías de iText7.
+
 ## Archivo de Datos
 
-El programa lee expresiones desde src/main/resources/datos.txt
+El programa lee expresiones desde `src/main/resources/datos.txt`
 
-Formato:
+**Formato:**
 - Operandos y operadores separados por espacios
 - Una expresión por línea
-- Operadores: + - * /
+- Operadores: `+` `-` `*` `/`
 
-Ejemplo:
-1 2 + 4 * 3 +
-6 2 3 + *
-4 2 + 3 5 1 - * +
-15 7 1 1 + - / 3 * 2 1 1 + + -
-5 1 2 + 4 * + 3 -
 
-(Aquí puede colocar los datos necesarios para la prueba)
+## Reporte PDF
 
-## Ejemplo de Salida
+El programa genera automáticamente un archivo `reporte_postfix.pdf` en la raíz del proyecto con:
 
-=== CALCULADORA POSTFIX ===
+- ✅ **Tabla de resultados** con todas las expresiones evaluadas
+- ✅ **Errores resaltados** en color rosa
+- ✅ **Resumen estadístico** (total, exitosos, errores)
+- ✅ **Fecha y hora** de generación
+- ✅ **Información del curso** y autores
 
-Expresion 1: 1 2 + 4 * 3 +
-Resultado: 15.0
+**Ubicación del PDF generado:**
+```
+POSTFIX-CALCULATOR/
+└── reporte_postfix.pdf  ← Se genera aquí
+```
 
-Expresion 2: 6 2 3 + *
-Resultado: 30.0
-
-Expresion 3: 4 2 + 3 5 1 - * +
-Resultado: 18.0
-
-Expresion 4: 15 7 1 1 + - / 3 * 2 1 1 + + -
-Resultado: 5.0
-
-Expresion 5: 5 1 2 + 4 * + 3 -
-Resultado: 14.0
 
 ## Pruebas JUnit
 
-Desde la carpeta demo:
+Ejecutar todas las pruebas:
+
+```bash
 cd demo
 mvn test
+```
+
+**Pruebas incluidas:**
+- `StackOperation.java` - Pruebas del ADT Stack
+- `CalculatorTest.java` - Pruebas de la calculadora Postfix
+
+## Dependencias
+
+El proyecto utiliza las siguientes librerías (gestionadas automáticamente por Maven):
+
+- **JUnit 5.10.1** - Framework de pruebas
+- **iText7 7.2.5** - Generación de documentos PDF
+  - `kernel` - Núcleo de iText
+  - `layout` - Diseño y formato
+  - `io` - Entrada/salida
+
+## Solución de Problemas
+
+### Error: "cannot find symbol" al compilar
+
+**Solución:** Asegúrate de compilar con Maven para descargar las dependencias de iText:
+
+```bash
+cd demo
+mvn clean install
+```
+
+
+### El PDF no se genera
+
+1. Verifica que compilaste con Maven: `mvn clean install`
+2. Verifica que las dependencias se descargaron: `mvn dependency:tree`
+3. Ejecuta desde la raíz del proyecto, no desde `demo/`
+
+## Tecnologías Utilizadas
+
+- **Java 17** - Lenguaje de programación
+- **Maven** - Gestión de dependencias y construcción
+- **JUnit 5** - Pruebas unitarias
+- **iText7** - Generación de reportes PDF
+- **Git/GitHub** - Control de versiones
 
 ## Autores
 
-- **Jimena Vásquez** (vas25092@uvg.edu.gt)
-- **Alejandro Sagastume** (sag25257@uvg.edu.gt)
+- **Jimena Vásquez** - vas25092@uvg.edu.gt
+- **Alejandro Sagastume** - sag25257@uvg.edu.gt
 
 ## Curso
 
-CC2003 - Sección 20 - Algoritmos y Estructura de Datos
-Universidad del Valle de Guatemala
+**CC2003 - Sección 20 - Algoritmos y Estructura de Datos**  
+Universidad del Valle de Guatemala  
 Hoja de Trabajo No. 2
