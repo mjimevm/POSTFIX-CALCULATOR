@@ -110,11 +110,11 @@ El programa lee expresiones desde `src/main/resources/datos.txt`
 
 El programa genera automáticamente un archivo `reporte_postfix.pdf` en la raíz del proyecto con:
 
-- ✅ **Tabla de resultados** con todas las expresiones evaluadas
-- ✅ **Errores resaltados** en color rosa
-- ✅ **Resumen estadístico** (total, exitosos, errores)
-- ✅ **Fecha y hora** de generación
-- ✅ **Información del curso** y autores
+- **Tabla de resultados** con todas las expresiones evaluadas
+- **Errores resaltados** en color rosa
+- **Resumen estadístico** (total, exitosos, errores)
+- **Fecha y hora** de generación
+- **Información del curso** y autores
 
 **Ubicación del PDF generado:**
 ```
