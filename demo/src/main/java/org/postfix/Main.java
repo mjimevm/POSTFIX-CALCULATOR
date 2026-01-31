@@ -48,9 +48,9 @@ public class Main {
                     
                     // Save the successful result for the PDF
                     resultados.add(new PDFGenerator.ExpresionResultado(
-                        linea,                        // Original expression
-                        String.valueOf(resultado),    // Result converted to String
-                        false                         // Not an error
+                        linea,
+                        String.valueOf(resultado),
+                        false
                     ));
                     
                 } catch (Exception e) {
@@ -59,13 +59,13 @@ public class Main {
                     
                     // Save the error for the PDF
                     resultados.add(new PDFGenerator.ExpresionResultado(
-                        linea,                        // Original expression
-                        "ERROR: " + e.getMessage(),   // Error message
-                        true                          // It is an error
+                        linea,
+                        "ERROR: " + e.getMessage(),
+                        true
                     ));
                 }
                 
-                System.out.println(); // Print a blank line for better readability
+                System.out.println();
                 numeroLinea++;
             }
             
