@@ -36,7 +36,14 @@ public class PDFGenerator {
         public boolean isError() { return esError; }
     }
     
-    // Method to generate a PDF report with the evaluated expression results
+/**
+* Generates a PDF report of postfix expression results.
+* @param    nombreArchivo The name of the output PDF file.
+* @param    resultados List of expression results to include in the report.
+* @return   void
+* @throws   FileNotFoundException If the file cannot be created or written to
+* @throws   Exception For other errors during PDF generation
+*/
     public void generarReporte(String nombreArchivo, List<ExpresionResultado> resultados)
             throws FileNotFoundException {
         

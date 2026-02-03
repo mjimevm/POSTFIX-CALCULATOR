@@ -1,3 +1,11 @@
+/**
+*
+* Main - Entry point for the Postfix Calculator application
+* 
+* @author Jimena Vásquez, Alejandro Sagastume
+* @version 1.0
+*/
+
 package org.postfix;
 
 import java.io.BufferedReader;

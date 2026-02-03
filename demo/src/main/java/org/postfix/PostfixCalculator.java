@@ -1,12 +1,19 @@
 package org.postfix;
 
 public class PostfixCalculator implements Calc {
+    // Atribute
     private Stack<Double> stack;
-
+    // Constructor
     public PostfixCalculator() {
         this.stack = new StackVector<>();
     }
-
+/**
+* Calculates the result of a postfix expression.
+* @param    input The postfix expression to be calculated.
+* @return   The result of the calculation.
+* @throws   IllegalArgumentException If the expression is invalid or cannot be calculated
+* @throws   ArithmeticException If division by zero occurs
+*/
     @Override
     public double calculate(String input) {
         stack = new StackVector<>(); // clear stack
